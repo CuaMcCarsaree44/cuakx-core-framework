@@ -1,4 +1,4 @@
-import {BaseResponse} from '../facade/response/BaseResponse';
+import {BaseResponse} from '../facade/http/response/BaseResponse';
 import express from 'express';
 /*
 |--------------------------------------------------------------------------
