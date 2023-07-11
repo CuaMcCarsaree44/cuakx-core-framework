@@ -1,7 +1,7 @@
 {
   "name": "cuakx-core-framework",
   "version": "0.0.1",
-  "description": "",
+  "description": "Cuakx Framework is the core engine of Cuakx Express boilerplate. Made meant to separate boilerplate from the actual core engine.",
   "main": "/dist/main/Index.js",
   "scripts": {
     "dev": "nodemon src/main/Index.ts",
@@ -18,7 +18,7 @@
     "deploy:production": "npm run migrate; npm run build; npm run start",
     "deploy:production:dummies": "npm run migrate:refresh; npm run seed; npm run build; npm run start"
   },
-  "author": "",
+  "author": "https://github.com/CuaMcCarsaree44",
   "license": "ISC",
   "devDependencies": {
     "@types/express": "^4.17.13",
