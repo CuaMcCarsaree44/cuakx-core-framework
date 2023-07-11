@@ -2,7 +2,7 @@ import process from "process";
 import {Log} from "../logs/Logging";
 
 import {Response} from 'express';
-import {BaseResponse} from '../facade/response/BaseResponse';
+import {BaseResponse} from '../http/response/BaseResponse';
 
 /**
  * ErrorHandler
