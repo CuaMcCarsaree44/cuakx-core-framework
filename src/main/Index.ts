@@ -4,9 +4,10 @@ import express, {NextFunction, Request, Response} from 'express';
 import 'express-async-errors';
 
 import config from './config/Config';
-import {Log} from './config/Logging';
+import {Log} from './facade/logs/Logging';
 
 import {BaseResponse} from './facade/http/response/BaseResponse';
+
 /**
  * Process watcher
  *  Make sure you don't fuck with `logging.ts`'s log file path.
@@ -27,10 +28,6 @@ import {ErrorHandler, handleError} from './facade/callback/Exception';
 | to make sure this project tides up.
 |
 */
-import middleware from './common/middleware/Middleware';
-import swaggerUi from 'swagger-ui-express';
-import swaggerJsDoc from 'swagger-jsdoc';
-import SwaggerOption from "../resources/swagger/SwaggerOption";
 import routes from './routes/RouteManagement';
 
 dotenv.config();
@@ -41,56 +38,6 @@ const router = express.Router();
  * @var string NAMESPACE
  */
 const NAMESPACE = 'Server';
-
-/*
-|--------------------------------------------------------------------------
-| Configuration Part
-|--------------------------------------------------------------------------
-|
-| This part contains the configurations.
-| Feel free to change or update the configuration.
-|
-*/
-
-console.log(`
-Session ${new Date()}
- 
-   ________  _____    __ ___  __
-  / ____/ / / /   |  / //_/ |/ /
- / /   / / / / /| | / ,<  |   / 
-/ /___/ /_/ / ___ |/ /| |/   |  
-\\____/\\____/_/  |_/_/ |_/_/|_|  
-                                
-
-`);
-
-
-/**
- * Loop trough ./api/middleware/middleware.ts
- */
-middleware.forEach((e) => {
-  router.use(e);
-});
-
-
-/*
-|--------------------------------------------------------------------------
-| Swagger-UI Part
-|--------------------------------------------------------------------------
-|
-| Here is where you can configure Swagger-UI.
-*/
-
-if(!["production"].includes(process.env.APP_ENV!) && process.env.SWAGGER_ENABLE! == "true"){
-  const specs = swaggerJsDoc(SwaggerOption);
-
-  router.use(
-    "/api-docs",
-    swaggerUi.serve,
-    swaggerUi.setup(specs)
-  );
-}
-
 
 /*
 |--------------------------------------------------------------------------
@@ -116,8 +63,6 @@ router.use('/api', routes);
 |
 */
 router.use((error: ErrorHandler, request: Request, response: Response, next: NextFunction) => {
-
-  console.log("Heho: "+ error);
 
   if(error){
     handleError(response, error);
